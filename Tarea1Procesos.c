@@ -1,3 +1,8 @@
+/**
+ *  Nombre: José Antonio Torres Verástegui
+ *  Fecha: 5/Febrero/2020
+ *  Tarea Procesos
+**/
 #include <stdio.h>
 #include <unistd.h>
 
