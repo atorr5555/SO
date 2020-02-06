@@ -8,20 +8,19 @@
 
 int fibonacci (int n);
 int factorial (int n);
-int validar (int n);
 
 void main() {
     int pid1, pid2, n, fact, fib;
     printf("Ingrese un numero entre 1 y 10: ");
     scanf("%d", &n);    
-    while(validar(n) == 0) {
+    while((n > 10) || (n < 0)) {
         printf("Incorrecto. Ingrese un numero entre 1 y 10: ");
         scanf("%d", &n);
     }
     pid1 = fork();
-    if (pid1 != 0) {
+    if (pid1) {
         pid2 = fork();
-        if (pid2 == 0) {
+        if (!pid2) {
             fact = factorial(n);
             printf("El factorial de %d es %d. Calculado por el hijo 2 con PID = %d \n", n, fact, getpid());
         }
@@ -44,11 +43,4 @@ int factorial (int n) {
         return 1;
     }
     return n*factorial(n-1);
-}
-
-int validar (int n) {
-    if ((n <= 10) && (n >= 0)) {
-        return 1;
-    }
-    return 0;
 }
