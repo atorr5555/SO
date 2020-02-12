@@ -12,7 +12,7 @@ int factorial (int n);
 void main() {
     int pid1, pid2, n, fact, fib;
     printf("Ingrese un numero entre 1 y 10: ");
-    scanf("%d", &n);    
+    scanf("%d", &n);
     while((n > 10) || (n < 0)) {
         printf("Incorrecto. Ingrese un numero entre 1 y 10: ");
         scanf("%d", &n);
