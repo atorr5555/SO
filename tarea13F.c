@@ -15,10 +15,13 @@
 int moda (int array[]);
 int mayor (int array[]);
 void swap (int *a, int *b);
+void printArray(int array[]);
 
 void main () {
     int pid1, pid2, modaNum, mayorNum, pidW1, pidW2, estado1, estado2;
     int array[10] = {118, 9, 220, 123, 118, 9, 118, 12, 53, 100};
+    printArray(array);
+    printf("PID del padre: %d ", getpid());
     pid1 = fork(); // Se crea el hijo 1 y se obtiene su PID
     if (pid1) {
         pid2 = fork(); // Se crea el hijo 2 y se obtiene su PID
@@ -35,12 +38,12 @@ void main () {
             }
         }
         else {
-            printf("Hijo 2 terminó \n");
+            printf("Hijo 2 terminó con PID: %d \n", getpid());
             exit(mayor(array)); // Línea ejecutada por el hijo 2
         }
     }
     else {
-        printf("Hijo 1 terminó \n");
+        printf("Hijo 1 terminó con PID: %d \n", getpid());
         exit(moda(array)); // Línea ejecutada por el hijo 1
     }
     printf("La moda es: %d \n", modaNum);
@@ -77,4 +80,13 @@ void swap(int *a, int*b) {
     int temp = *a;
     *a = *b;
     *b = temp;
+}
+
+// Función que muestra el arreglo en pantalla
+void printArray(int array[]) {
+    printf("Arreglo: [");
+    for (int i = 0; i < 10; i++) {
+        printf("%d ", array[i]);
+    }
+    printf("]\n");
 }
