@@ -21,7 +21,7 @@ void main () {
     int pid1, pid2, modaNum, mayorNum, pidW1, pidW2, estado1, estado2;
     int array[10] = {118, 9, 220, 123, 118, 9, 118, 12, 53, 100};
     printArray(array);
-    printf("PID del padre: %d ", getpid());
+    printf("PID del padre: %d \n", getpid());
     pid1 = fork(); // Se crea el hijo 1 y se obtiene su PID
     if (pid1) {
         pid2 = fork(); // Se crea el hijo 2 y se obtiene su PID
