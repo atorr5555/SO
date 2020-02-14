@@ -1,6 +1,7 @@
 /**
  *  José Antonio Torres Verástegui
  *  12/Febrero/2020
+ *  Sistemas Operativos - Grupo 4
  *  Descripción: El padre genera un arreglo de 10 elementos con valores entre 0 y 255, crea dos hijos y espera a que terminen y le
  *  devuelvan resultados: el hijo 1 calcula la moda de los elementos del arreglo, el hijo 2 obtiene el mayor valor del arreglo. Los
  *  valores obtenidos son regresados al padre y el los muestra en pantalla. 
