@@ -85,9 +85,9 @@ void swap(int *a, int*b) {
 
 // Función que muestra el arreglo en pantalla
 void printArray(int array[]) {
-    printf("Arreglo: [");
+    printf("Arreglo:");
     for (int i = 0; i < 10; i++) {
         printf("%d ", array[i]);
     }
-    printf("]\n");
+    printf("\n");
 }
