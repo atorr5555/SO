@@ -50,11 +50,16 @@ void ejecutar (char input[1024]) {
             pid2 = fork();
             if (pid2) {
                 //hijo
+                int estado = 0;
+                wait(&estado);
                 close(0);
                 close(pipefd[1]);
                 dup(pipefd[0]);
                 execvp(*afterPipe, afterPipe);
                 printf("Error, comando '%s' no encontrado \n", *afterPipe);
+                if (!(estado >> 0)) {
+                    printf("Error, comando '%s' no encontrado \n", *beforePipe);
+                }
                 exit(0);
             }
             else {
@@ -69,6 +74,7 @@ void ejecutar (char input[1024]) {
         else {
             execvp(*argv, argv);
             printf("Error, comando '%s' no encontrado \n", *argv);
+            exit(0);
         }
     }
 }
