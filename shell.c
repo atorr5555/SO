@@ -69,6 +69,7 @@ void ejecutar (char input[1024]) {
         else {
             execvp(*argv, argv);
             printf("Error, comando '%s' no encontrado \n", *argv);
+            exit(0);
         }
     }
 }
