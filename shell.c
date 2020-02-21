@@ -55,6 +55,7 @@ void ejecutar (char input[1024]) {
                 dup(pipefd[0]);
                 execvp(*afterPipe, afterPipe);
                 printf("Error, comando '%s' no encontrado \n", *afterPipe);
+                exit(0);
             }
             else {
                 //nieto
@@ -62,7 +63,7 @@ void ejecutar (char input[1024]) {
                 close(pipefd[0]);
                 dup(pipefd[1]); // La salida estándar va a ser pipefd[1]
                 execvp(*beforePipe, beforePipe);
-                printf("Error, comando '%s' no encontrado \n", *beforePipe);
+                exit(0);
             }
         }
         else {
