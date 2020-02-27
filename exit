@@ -1,0 +1,92 @@
+[33mcommit ddd82f619820a29296bccad554fa08a096e3c895[m[33m ([m[1;36mHEAD -> [m[1;32mmaster[m[33m, [m[1;31morigin/master[m[33m)[m
+Author: Antonio Torres <antoniotorr5555@gmail.com>
+Date:   Fri Feb 21 22:04:44 2020 -0600
+
+    Comentarios agregados
+
+[33mcommit 5029281cfc6081c14cc8a8d42a2e717e3f852ba4[m
+Author: Antonio Torres <antoniotorr5555@gmail.com>
+Date:   Thu Feb 20 21:54:26 2020 -0600
+
+    Shell para pruebas
+
+[33mcommit f2f2c6402dc6da8e75011e2f0d97f9523f4599ce[m
+Merge: 42f1da1 9d2a5c9
+Author: atorr5555 <31078782+atorr5555@users.noreply.github.com>
+Date:   Thu Feb 20 20:35:42 2020 -0600
+
+    Merge pull request #1 from atorr5555/ShellT
+    
+    ShellT
+
+[33mcommit 9d2a5c98efe17db81841d3296a81f34ed50fb88e[m
+Author: Antonio Torres <antoniotorr5555@gmail.com>
+Date:   Thu Feb 20 20:09:58 2020 -0600
+
+    Archivo para pruebas
+
+[33mcommit 3074b98a40645822f84b3bf41bf3a7f4642b7897[m
+Author: Antonio Torres <antoniotorr5555@gmail.com>
+Date:   Thu Feb 20 20:04:49 2020 -0600
+
+    Avance shell, quedan algunos errores
+
+[33mcommit 42f1da1f1ac8dd3404fe9f1184e40f6c3cec2836[m
+Author: Antonio Torres <antoniotorr5555@gmail.com>
+Date:   Wed Feb 19 22:06:03 2020 -0600
+
+    Avance shell
+
+[33mcommit 7a497056c78aa2bd7ce07c6b09556ff88845bdf6[m
+Author: Antonio Torres <antoniotorr5555@gmail.com>
+Date:   Fri Feb 14 13:41:58 2020 -0600
+
+    Ejercicio en clase 13 Febrero
+
+[33mcommit 1f794085dd8fb79381fb0ba841cf99f590733b14[m
+Author: atorr5555 <antoniotorr5555@gmail.com>
+Date:   Wed Feb 12 21:01:06 2020 -0600
+
+    update
+
+[33mcommit 4d403b57d88364b4af9620aa2ba7eaa47278d8af[m
+Author: atorr5555 <antoniotorr5555@gmail.com>
+Date:   Wed Feb 12 20:42:58 2020 -0600
+
+    Tarea 13 Febrero 2020 Actualización
+
+[33mcommit 0ce1b388c0ec4989bae3716dfdc1ab79cb5d5682[m
+Author: atorr5555 <antoniotorr5555@gmail.com>
+Date:   Wed Feb 12 19:30:40 2020 -0600
+
+    Tarea 13 Febrero 2020
+
+[33mcommit a914625fd75ef76e327fefbfca2d930814ea2fef[m
+Author: atorr5555 <antoniotorr5555@gmail.com>
+Date:   Wed Feb 12 11:16:38 2020 -0600
+
+    Codigo Clase 11 Feb
+
+[33mcommit 26b2b915d08b5f11d9507da47ca569e311413f3d[m
+Author: atorr5555 <antoniotorr5555@gmail.com>
+Date:   Thu Feb 6 17:09:01 2020 -0600
+
+    Tarea 1 Procesos optimizada
+
+[33mcommit 9f2f300734489c8d6083476c3ca07c5643054856[m
+Author: atorr5555 <antoniotorr5555@gmail.com>
+Date:   Wed Feb 5 12:24:25 2020 -0600
+
+    Comentarios de header en Tarea Procesos
+
+[33mcommit 2923b47dad6601930372fc415a91a7763880f896[m
+Author: atorr5555 <antoniotorr5555@gmail.com>
+Date:   Wed Feb 5 12:19:08 2020 -0600
+
+    Tarea 1 Procesos
+
+[33mcommit 69926ec175837008f411df2da500f5aafc8a19c6[m
+Author: atorr5555 <antoniotorr5555@gmail.com>
+Date:   Wed Feb 5 11:17:57 2020 -0600
+
+    first commit
