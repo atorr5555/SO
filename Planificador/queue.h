@@ -1,3 +1,5 @@
+#ifndef queue_h
+#define queue_h
 #include<stdio.h>
 #include<stdlib.h>
 
@@ -64,3 +66,4 @@ int dequeue(Queue *queue) {
 	queue->head = new_head;
 	return num_process;
 }
+#endif

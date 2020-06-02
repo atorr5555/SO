@@ -24,6 +24,10 @@ void main() {
 	int num_pass = 0;
 	int i = 0;
 	while (current != NULL && i < 5) {
+		if ((num_pass + 1) > current->num_pages) {
+			current = current->next_row;
+			continue;
+		}
 		memoria[i][0] = current->num_process;
 		memoria[i][1] = num_pass;
 		memoria[i][2] = 0;
