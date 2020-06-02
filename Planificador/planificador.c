@@ -9,6 +9,11 @@
 int read_file();
 void print_memoria();
 
+/* 
+tabla de procesos 
+(cada registro de proceso en la tabla tiene asociada una tabla de direcciones)
+Veáse process_table.h
+*/
 Process_table proc_table;
 int memoria[5][3];
 
@@ -68,6 +73,7 @@ int read_file() {
 			data = strtok(NULL, " ");// avanca a la siguiente palabra después del espacio
 			i++;
 		}
+		// Si el primer elemento es 0 -> Es un registro maestro
 		if (data_array[0] == 0) {
 			num_process = data_array[1];
 			double size_double = data_array[2];
@@ -75,6 +81,7 @@ int read_file() {
 			add_process(&proc_table, data_array[1], data_array[2], pages);
 			continue;
 		}
+		// Si el primer elemento no es 0 -> Es un registro de dirección
 		Row_process_table *current = proc_table.first_row;
 		while (current != NULL) {
 			if (current->num_process == num_process) {
@@ -85,6 +92,7 @@ int read_file() {
 		if (current == NULL) {
 			return -1;
 		}
+		// Agrega direcciones a la tabla de direcciones de los procesos
 		add_dir(&(current->direction_table), data_array[1], data_array[2]);
 	}
 	fclose(fp);
