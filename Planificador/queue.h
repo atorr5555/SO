@@ -1,9 +1,8 @@
-#ifndef queue
 #include<stdio.h>
 #include<stdlib.h>
 
 typedef struct Node{
-    int num_proceso;
+    int num_process;
     struct Node *next;
 }Node;
 
@@ -12,59 +11,56 @@ typedef struct Queue{
 	Node *tail;
 }Queue;
 
-Queue createQueue();
-void printQueue(Queue);
+Queue create_queue();
+void print_queue(Queue);
 void enqueue(Queue*, int);
-int dequeue(Queue*, int);
+int dequeue(Queue*);
 
-Queue createQueue(){
+Queue create_queue(){
 	Queue queue;
 	queue.head = NULL;
 	queue.tail = NULL;
 	return queue;
 }
 
-void printQueue(Queue queue) {
+void print_queue(Queue queue) {
 	if (queue.head == NULL) {
 		printf("La cola está vacía");
 		return;
 	}
 	Node *current = queue.head;
 	while (current != NULL) {
-		printf("%d ", current->num_proceso);
+		printf("%d ", current->num_process);
 		current = current->next;
 	}
 }
 
-void enqueue(Queue *queue, int num_proceso) {
+void enqueue(Queue *queue, int num_process) {
 	if (queue->head == NULL) {
 		Node *node = (Node*)malloc(sizeof(Node));
-		node->num_proceso = num_proceso;
+		node->num_process = num_process;
 		node->next = NULL;
 		queue->head = node;
 		queue->tail = node;
 		return;
 	}
 	Node *new_node = (Node*)malloc(sizeof(Node));
-	new_node->num_proceso = num_proceso;
+	new_node->num_process = num_process;
 	new_node->next = NULL;
 	queue->tail->next = new_node;
 	queue->tail = new_node;
 }
 
 int dequeue(Queue *queue) {
-	int num_proceso;
+	int num_process;
 	if (queue->head == NULL) {
 		return -1;
 	}
 	Node *new_head = NULL;
 	Node *temp = queue->head;
 	new_head = temp->next;
-	num_proceso = temp->num_proceso;
+	num_process = temp->num_process;
 	free(queue->head);
 	queue->head = new_head;
-	return num_proceso;
+	return num_process;
 }
-
-#define queue
-#endif
