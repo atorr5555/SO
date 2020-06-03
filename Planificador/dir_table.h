@@ -18,6 +18,7 @@ Dir_table create_dir_table();
 void add_dir(Dir_table *, int, int);
 int get_size_dtable(Dir_table);
 void print_dtable(Dir_table);
+void delete_head(Dir_table *);
 
 Dir_table create_dir_table() {
 	Dir_table table;
@@ -62,5 +63,14 @@ void print_dtable(Dir_table table) {
 		printf("%d\t%d\n", current->page, current->offset);
 		current = current->next_row;
 	}
+}
+
+void delete_head(Dir_table *table) {
+	if (table->first_row == NULL) {
+		return;
+	}
+	Row_dir_table *new_head = table->first_row->next_row;
+	free(table->first_row);
+	table->first_row = new_head;
 }
 #endif
