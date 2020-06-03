@@ -5,9 +5,13 @@
 #include "queue.h"
 #include "process_table.h"
 #include "dir_table.h"
+#define quantum 4
 
 int read_file();
 void print_memoria();
+int find_in_mem (int, int);
+void planificador();
+int	check_page(int, int);
 
 /* 
 tabla de procesos 
@@ -16,6 +20,7 @@ Veáse process_table.h
 */
 Process_table proc_table;
 int memoria[5][3];
+Queue cola_procesos;
 
 void main() {
 	proc_table = create_process_table();
@@ -44,8 +49,16 @@ void main() {
 		}
 	}
 	print_memoria();
-	
-	
+	//Llenando la cola de forma inicial
+	cola_procesos = create_queue();
+	current = proc_table.first_row;
+	while (current != NULL) {
+		enqueue(&cola_procesos, current->num_process);
+		current = current->next_row;
+	}
+	print_queue(cola_procesos);
+	getchar();
+	planificador();
 }
 
 int read_file() {
@@ -100,6 +113,7 @@ int read_file() {
 }
 
 void print_memoria() {
+	printf("-------------------------------------------\n");
 	printf("Memoria Real\n");
 	printf("Marco\tProceso\tPagina\tFrecuencia\n");
 	for (int i = 0; i < 5; i++) {
@@ -109,6 +123,106 @@ void print_memoria() {
 		}
 		printf("\n");
 	}
+}
+
+int	check_page(int num_process, int page) {
+	Row_process_table *current = proc_table.first_row;
+	while (current != NULL) {
+		if (current->num_process == num_process) {
+			if ((page + 1) > current->num_pages) {
+				return 0;
+			}
+			return 1;
+		}
+		current = current->next_row;
+	}
+	return 0;
+}
+
+int find_in_mem (int num_process, int page) {
+	for (int i = 0; i < 5; i++) {
+		if (memoria[i][0] == num_process && memoria[i][1] == page) {
+			return i;
+		}
+	}
+	return -1;
 	
 }
 
+void planificador() {
+	int num_process = dequeue(&cola_procesos);
+	Dir_table *tabla_direcciones = NULL;
+	int num_pag;
+	int offset;
+	int marco_pag;
+	int count = 0;
+	int dir_real;
+	printf("-------------------------------------------\n");
+	printf("Proceso %d entra a ejecucion\n", num_process);
+	while (num_process != -1) {
+		// Obtener su tabla de direcciones
+		Row_process_table *current = proc_table.first_row;
+		while (current != NULL) {
+			if (current->num_process == num_process) {
+				tabla_direcciones = &(current->direction_table);
+			}
+			current = current->next_row;
+		}
+		// Si no hay direcciones para traducir
+		if (tabla_direcciones->first_row == NULL) {
+			num_process = dequeue(&cola_procesos);
+			continue;
+		}
+		// Obteniendo la direccion virtual de la tabla de direcciones
+		num_pag = tabla_direcciones->first_row->page;
+		offset = tabla_direcciones->first_row->offset;
+		// Revisa desbordamiento de pagina
+		if (offset >= 20) {
+			printf("-------------------------------------------\n");
+			printf("DESBORDAMIENTO DE PAGINA PROCESO: %d\n", num_process);
+			printf("Causado por la direccion virtual: (%d, %d)\n", num_pag, offset);
+			printf("El proceso %d ha terminado\n", num_process);
+			num_process = dequeue(&cola_procesos);
+			printf("-------------------------------------------\n");
+			printf("Proceso %d entra a ejecucion\n", num_process);
+			continue;
+		}
+		// Revisa inexistencia de pagina
+		if (!check_page(num_process, num_pag)) {
+			printf("-------------------------------------------\n");
+			printf("INEXISTENCIA DE PAGINA PROCESO: %d\n", num_process);
+			printf("Causado por la direccion virtual: (%d, %d)\n", num_pag, offset);
+			printf("El proceso %d ha terminado\n", num_process);
+			num_process = dequeue(&cola_procesos);
+			printf("-------------------------------------------\n");
+			printf("Proceso %d entra a ejecucion\n", num_process);
+			continue;
+		}
+		// Revisa fallo de pagina
+		marco_pag = find_in_mem(num_process, num_pag);
+		if (marco_pag == -1) {
+			printf("-------------------------------------------\n");
+			printf("FALLO DE PAGINA PROCESO: %d\n", num_process);
+			printf("Causado por la direccion virtual: (%d, %d)\n", num_pag, offset);
+			// Llamar a funcion que maneje los cambios de página
+			exit(0);
+		}
+		// Traduce direccion virtual a direccion real
+		dir_real = marco_pag*20 + offset;
+		print_memoria();
+		printf("Direccion virtual: (%d, %d) | Direccion real: %d\n", num_pag, offset, dir_real);
+		delete_head(tabla_direcciones);
+		//Llamar a funcion que aumente la frecuencia
+		count++;
+		if (count >= quantum) {
+			// Si todavía no termina el proceso, vuelve a la cola
+			if (tabla_direcciones->first_row != NULL) {
+				enqueue(&cola_procesos, num_process);
+			}
+			num_process = dequeue(&cola_procesos);
+			printf("-------------------------------------------\n");
+			printf("Proceso %d entra a ejecucion\n", num_process);
+			count = 0;
+		}
+	}
+}
