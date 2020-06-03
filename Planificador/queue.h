@@ -26,15 +26,19 @@ Queue create_queue(){
 }
 
 void print_queue(Queue queue) {
+	printf("-------------------------------------------\n");
+	printf("Cola de procesos\n");
 	if (queue.head == NULL) {
 		printf("La cola está vacía");
 		return;
 	}
 	Node *current = queue.head;
+	printf("<- ");
 	while (current != NULL) {
-		printf("%d ", current->num_process);
+		printf("%d, ", current->num_process);
 		current = current->next;
 	}
+	printf("\n");
 }
 
 void enqueue(Queue *queue, int num_process) {
