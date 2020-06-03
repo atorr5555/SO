@@ -59,6 +59,8 @@ int get_size_ptable (Process_table table) {
 }
 
 void print_ptable(Process_table table) {
+	printf("-------------------------------------------\n");
+	printf("Tabla de procesos\n");
 	if (table.first_row == NULL) {
 		printf("La tabla está vacía");
 		return;
@@ -87,6 +89,7 @@ int find_process(Process_table table, int num_process) {
 void print_dir_tables(Process_table table) {
 	Row_process_table *current = table.first_row;
 	while(current != NULL) {
+		printf("-------------------------------------------\n");
 		printf("Proceso: %d\n", current->num_process);
 		print_dtable(current->direction_table);
 		current = current->next_row;
