@@ -12,6 +12,9 @@ void print_memoria();
 int find_in_mem (int, int);
 void planificador();
 int	check_page(int, int);
+void mod_frec (int);
+int cambia_pag (int, int);
+void reset_frecuencias();
 
 /* 
 tabla de procesos 
@@ -149,6 +152,41 @@ int find_in_mem (int num_process, int page) {
 	
 }
 
+void mod_frec (int marco_pag) {
+	memoria[marco_pag][2] = memoria[marco_pag][2] + 1;
+}
+
+int busca_espacio_mem () {
+	for (int i = 0; i < 5; i++) {
+		if (memoria[i][0] == -1) {
+			return i;
+		}
+	}
+	return -1;
+}
+
+int cambia_pag (int num_proceso, int num_pag) {
+	// Encontrar al registro con menor frecuencia
+	int menor = 0;
+	for (int i = 1; i < 5; i++) {
+		if (memoria[i][2] < memoria[menor][2]) {
+			menor = i;
+		}
+	}
+	memoria[menor][0] = num_proceso;
+	memoria[menor][1] = num_pag;
+	memoria[menor][2] = 0;
+	// Reset a las frecuencias
+	reset_frecuencias();
+	return menor;
+}
+
+void reset_frecuencias () {
+	for (int i = 0; i < 5; i++) {
+		memoria[i][2] = 0;
+	}
+}
+
 void planificador() {
 	int num_process = dequeue(&cola_procesos);
 	Dir_table *tabla_direcciones = NULL;
@@ -182,6 +220,7 @@ void planificador() {
 			printf("DESBORDAMIENTO DE PAGINA PROCESO: %d\n", num_process);
 			printf("Causado por la direccion virtual: (%d, %d)\n", num_pag, offset);
 			printf("El proceso %d ha terminado\n", num_process);
+			// Agregar funcion para quitar sus paginas de memoria
 			num_process = dequeue(&cola_procesos);
 			printf("-------------------------------------------\n");
 			printf("Proceso %d entra a ejecucion\n", num_process);
@@ -193,6 +232,7 @@ void planificador() {
 			printf("INEXISTENCIA DE PAGINA PROCESO: %d\n", num_process);
 			printf("Causado por la direccion virtual: (%d, %d)\n", num_pag, offset);
 			printf("El proceso %d ha terminado\n", num_process);
+			// Agregar funcion para quitar sus paginas de memoria
 			num_process = dequeue(&cola_procesos);
 			printf("-------------------------------------------\n");
 			printf("Proceso %d entra a ejecucion\n", num_process);
@@ -204,20 +244,36 @@ void planificador() {
 			printf("-------------------------------------------\n");
 			printf("FALLO DE PAGINA PROCESO: %d\n", num_process);
 			printf("Causado por la direccion virtual: (%d, %d)\n", num_pag, offset);
-			// Llamar a funcion que maneje los cambios de página
-			exit(0);
+			int espacio = busca_espacio_mem();
+			if (espacio == -1) {
+				marco_pag = cambia_pag(num_process, num_pag);
+			}
+			else {
+				memoria[espacio][0] = num_process;
+				memoria[espacio][1] = num_pag;
+				reset_frecuencias();
+				marco_pag = espacio;
+			}
 		}
 		// Traduce direccion virtual a direccion real
 		dir_real = marco_pag*20 + offset;
+		//Llama a funcion que aumente la frecuencia
+		mod_frec(marco_pag);
 		print_memoria();
 		printf("Direccion virtual: (%d, %d) | Direccion real: %d\n", num_pag, offset, dir_real);
 		delete_head(tabla_direcciones);
-		//Llamar a funcion que aumente la frecuencia
 		count++;
-		if (count >= quantum) {
+		if (count >= quantum || tabla_direcciones->first_row == NULL ) {
 			// Si todavía no termina el proceso, vuelve a la cola
 			if (tabla_direcciones->first_row != NULL) {
 				enqueue(&cola_procesos, num_process);
+			}
+			else {
+				printf("-------------------------------------------\n");
+				printf("El proceso %d ha terminado\n", num_process);
+				// Agregar funcion para quitar sus paginas de memoria
+				//NEXT TODO
+
 			}
 			num_process = dequeue(&cola_procesos);
 			printf("-------------------------------------------\n");
