@@ -22,7 +22,6 @@ Process_table create_process_table();
 void add_process(Process_table *, int, int, int);
 int get_size_ptable(Process_table);
 void print_ptable(Process_table);
-int find_process(Process_table, int);
 void print_dir_tables(Process_table);
 Dir_table *find_dir_table(Process_table, int);
 
@@ -82,23 +81,6 @@ void print_ptable(Process_table table)
 		printf("%d\t%d\t%d \n", current->num_process, current->size, current->num_pages);
 		current = current->next_row;
 	}
-}
-
-int find_process(Process_table table, int num_process)
-{
-	if (table.first_row == NULL)
-	{
-		return -1;
-	}
-	Row_process_table *current = table.first_row;
-	for (int i = 0; i < get_size_ptable(table); i++)
-	{
-		if (current->num_process == num_process)
-		{
-			return i;
-		}
-	}
-	return -1;
 }
 
 void print_dir_tables(Process_table table)
