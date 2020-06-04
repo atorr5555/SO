@@ -13,7 +13,7 @@ paginación por demanda y la de reemplazo de la menos frecuentemente utilizada.
 Para realizar esto se decidieron crear structs que representaran a las tablas de
 procesos y direcciones para que su relación fuera más fácil de comprender. Así
 mismo se crearon los structs que componen la cola para su uso en el planificador
-por round robin.
+por round robin
 
 NOTAS IMPORTANTES SOBRE LA COMPILACIÓN Y EJECUCION DEL PROGRAMA:
 
