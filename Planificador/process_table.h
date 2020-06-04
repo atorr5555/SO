@@ -12,6 +12,7 @@ typedef struct Row_process_table
 	struct Row_process_table *next_row;
 	Dir_table direction_table;
 } Row_process_table; //Estructura que contiene todos los datros de la tabla de procesos
+// Cada proceso tiene asociada su tabla de direcciones
 
 typedef struct Process_table 
 {
@@ -21,8 +22,8 @@ typedef struct Process_table
 Process_table create_process_table(); // Función que crea una tabla de procesos
 void add_process(Process_table *, int, int, int); //Función que agrega un proceso a la tabla de procesos
 int get_size_ptable(Process_table); //Función que determina el tamaño de la tabla de procesos
-void print_ptable(Process_table); 
-void print_dir_tables(Process_table); //Función que imprime la tabla 
+void print_ptable(Process_table); // Función que imprime la tabla de procesos
+void print_dir_tables(Process_table); //Función que imprime las tablas de direcciones asociadas a cada proceso 
 Dir_table *find_dir_table(Process_table, int); //Función que busca un elemento en la tabla de procesos
 
 Process_table create_process_table()

@@ -6,14 +6,27 @@ Flores Fuentes Kevin
 Torres Verástegui José Antonio
 
 Objetivo del programa:
-Elaborar un programa en Ansi C que realice la planificación de procesos por la técnica de round robin y la administración de memoria por el método de paginación por demanda y la de reemplazo de la menos frecuentemente utilizada.
+Elaborar un programa en Ansi C que realice la planificación de procesos por la 
+técnica de round robin y la administración de memoria por el método de 
+paginación por demanda y la de reemplazo de la menos frecuentemente utilizada.
 
-El siguiente programa recibe como parametro de entrada la dirección del archivo de texto donde se encuentren los datos de los procesos,
+Para realizar esto se decidieron crear structs que representaran a las tablas de
+procesos y direcciones para que su relación fuera más fácil de comprender. Así
+mismo se crearon los structs que componen la cola para su uso en el planificador
+por round robin.
+
+NOTAS IMPORTANTES SOBRE LA COMPILACIÓN Y EJECUCION DEL PROGRAMA:
+
+El siguiente programa recibe como parametro de entrada la dirección del archivo 
+de texto donde se encuentren los datos de los procesos,
 al igual que al compilar se necesita incluir -lm puesto que se usa la libreria math.h
 Ejemplo:
 gcc -o proyecto planificador.c -lm
 ./proyecto /home/kvriboh/Escritorio/Planificador/prueba.txt
 
+ó
+
+./proyecto prueba.txt
 */
 
 #include <stdio.h>
@@ -221,7 +234,7 @@ int busca_espacio_mem() //Función que busca espacio disponible en memoria, al s
 	return -1;
 }
 
-int cambia_pag(int num_proceso, int num_pag) //Funcion que hace el cambio de pagina y hace un reset a las frecuencias
+int cambia_pag(int num_proceso, int num_pag) //Funcion que hace el cambio de pagina
 {
 	// Encontrar al registro con menor frecuencia
 	int menor = 0;
@@ -243,7 +256,7 @@ int cambia_pag(int num_proceso, int num_pag) //Funcion que hace el cambio de pag
 	return menor;
 }
 
-void reset_frecuencias() //Reinicia las frecuencias de los procesos en memoria
+void reset_frecuencias() //Reinicia las frecuencias de los marcos de pagina en memoria
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -251,7 +264,7 @@ void reset_frecuencias() //Reinicia las frecuencias de los procesos en memoria
 	}
 }
 
-void borra_pags(int num_proceso) //Función que borra la pagina y el proceso que estaba en memoria real
+void borra_pags(int num_proceso) //Función que borra las paginas de un proceso que estaba en memoria real
 {
 	for (int i = 0; i < 5; i++)
 	{
@@ -272,7 +285,7 @@ void print_ejecucion(int num_proceso) //Imprime el proceso que entra en ejecucio
 	printf("Proceso %d entra a ejecucion\n", num_proceso);
 }
 
-void termina_proceso(int num_proceso) //Función que se encarga de terminar el proceso y sacarlo de la cola
+void termina_proceso(int num_proceso) //Función que se encarga de terminar el proceso
 {
 	printf("-------------------------------------------\n");
 	printf("El proceso %d ha terminado\n", num_proceso);
@@ -374,6 +387,10 @@ void planificador() //Función que se encarga de la planificación de procesos
 		mod_frec(marco_pag);
 		print_memoria();
 		printf("Direccion virtual: (%d, %d) | Direccion real: %d\n", num_pag, offset, dir_real);
+		/* Borra el primer registro de la tabla de direcciones para así avanzar al siguiente,
+			de esta forma no se requiere guardar donde se quedó en la tabla de direcciones,
+			sólo lee siempre el primer elemento y cuando traduce esa direccion lo borra
+		*/
 		delete_head(tabla_direcciones);
 		count++;
 		if (count >= quantum || tabla_direcciones->first_row == NULL)
