@@ -30,7 +30,7 @@ biblioteca math.h. Ejemplo:
 gcc planificador.c -o proyecto -lm
 ```
 
-### Ejecución
+## Ejecución
 
 Se debe indicar la ruta relativa o absoluta del archivo de texto de entrada.
 
