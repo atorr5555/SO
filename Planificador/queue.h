@@ -7,18 +7,18 @@ typedef struct Node
 {
 	int num_process;
 	struct Node *next;
-} Node;
+} Node; //Estructura de un nodo que cuenta con el numero de procesos
 
 typedef struct Queue
 {
 	Node *head;
 	Node *tail;
-} Queue;
+} Queue; //Estructura que cuenta con los nodos necesarios para la cola
 
-Queue create_queue();
-void print_queue(Queue);
-void enqueue(Queue *, int);
-int dequeue(Queue *);
+Queue create_queue(); //Crea una cola
+void print_queue(Queue); //Imprime la cola
+void enqueue(Queue *, int); //Agrega un elemento a la cola
+int dequeue(Queue *);  //Elimina el primer proceso en la cola.
 
 Queue create_queue()
 {

@@ -11,19 +11,19 @@ typedef struct Row_process_table
 	int num_pages;
 	struct Row_process_table *next_row;
 	Dir_table direction_table;
-} Row_process_table;
+} Row_process_table; //Estructura que contiene todos los datros de la tabla de procesos
 
-typedef struct Process_table
+typedef struct Process_table 
 {
 	Row_process_table *first_row;
-} Process_table;
+} Process_table;  //Estructura de una tabla de procesos
 
-Process_table create_process_table();
-void add_process(Process_table *, int, int, int);
-int get_size_ptable(Process_table);
-void print_ptable(Process_table);
-void print_dir_tables(Process_table);
-Dir_table *find_dir_table(Process_table, int);
+Process_table create_process_table(); // Función que crea una tabla de procesos
+void add_process(Process_table *, int, int, int); //Función que agrega un proceso a la tabla de procesos
+int get_size_ptable(Process_table); //Función que determina el tamaño de la tabla de procesos
+void print_ptable(Process_table); 
+void print_dir_tables(Process_table); //Función que imprime la tabla 
+Dir_table *find_dir_table(Process_table, int); //Función que busca un elemento en la tabla de procesos
 
 Process_table create_process_table()
 {

@@ -8,19 +8,19 @@ typedef struct Row_dir_table
 	int page;
 	int offset;
 	struct Row_dir_table *next_row;
-} Row_dir_table;
+} Row_dir_table; //Estructura que cuenta con los tipos de datos de la tabla de direcciones (pagina y desplazamiento)
 
 typedef struct Dir_table
 {
 	int num_process;
 	Row_dir_table *first_row;
-} Dir_table;
+} Dir_table; //Estructura de la tabla de direcciones
 
-Dir_table create_dir_table();
-void add_dir(Dir_table *, int, int);
-int get_size_dtable(Dir_table);
-void print_dtable(Dir_table);
-void delete_head(Dir_table *);
+Dir_table create_dir_table(); //Crea una tabla de direcciones
+void add_dir(Dir_table *, int, int); //Agrega los datos a la tabla de direcciones
+int get_size_dtable(Dir_table); //Obtiene el tamaño de la tabla de direcciones
+void print_dtable(Dir_table); //Imprime la tabla de direcciones
+void delete_head(Dir_table *);  //Borra el primer elemento de la tabla de direcciones
 
 Dir_table create_dir_table()
 {
